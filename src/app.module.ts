@@ -10,6 +10,7 @@ import { UsersModule } from './modules/admin/users/users.module';
 import { RolesModule } from './modules/admin/roles/roles.module';
 import { PermissionsModule } from './modules/admin/permissions/permissions.module';
 import { SeedModule } from './database/seeders/seed.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { SeedModule } from './database/seeders/seed.module';
     UsersModule,
     RolesModule,
     PermissionsModule,
+    AuthModule,
 
   ],
   controllers: [AppController],
