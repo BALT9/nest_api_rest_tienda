@@ -9,3 +9,7 @@ Accept: application/json
     "email": "admin@mail.com",
     "password": "admin54321"
 }
+
+
+###
+GET http://localhost:3000/users

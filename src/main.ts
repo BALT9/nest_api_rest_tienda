@@ -16,7 +16,7 @@ async function bootstrap() {
     .setTitle('API REST BACKEND NEST')
     .setDescription('API backend')
     .setVersion('1.0')
-    .addTag('code')
+    .addTag('code ')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, documentFactory);
