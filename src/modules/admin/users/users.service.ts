@@ -1,9 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
+
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -13,8 +15,43 @@ export class UsersService {
     private userRepository: Repository<User>
   ) { }
 
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  async create(createUserDto: CreateUserDto) {
+    const { rolesIds, email, username, ...rest } = createUserDto;
+
+    // verficar si ya exiten un username 
+    const existeUsername = await this.userRepository.findOne({
+      where: {username}
+    });
+
+    if(existeUsername){
+      throw new BadRequestException(`El username ${username} ya esta registrado`)
+    }
+
+    // verficar si ya exiten un correo 
+    const existeEmail = await this.userRepository.findOne({
+      where: {email}  
+    });
+
+    if(existeEmail){
+      throw new BadRequestException(`El username ${email} ya esta registrado`)
+    }
+
+    // encriptar contraseña
+    const hashPassword = await bcrypt.hash(rest.password, 12);
+
+    const newUser = this.userRepository.create({
+      username,
+      email,
+      password: hashPassword
+      //roles
+    });
+
+    this.userRepository.save(newUser);
+
+    const {password, ...resto_datos} = newUser;
+    
+    return resto_datos
+
   }
 
   findAll() {

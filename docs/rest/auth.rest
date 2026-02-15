@@ -13,3 +13,4 @@ Accept: application/json
 
 ###
 GET http://localhost:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluIiwiaWQiOiI3Y2Y3ZjM2NS1kYmE3LTQ2NzctOWJiOC0yZDAyODAxNDQ1NWQiLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3NzExODU2MTMsImV4cCI6MTc3MTE4OTIxM30.ebLdq6NhJBwkCxmGzPaRgOeqHVL3VIhDWK0uZWTS-XE
