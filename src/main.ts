@@ -13,6 +13,7 @@ async function bootstrap() {
   }));
 
   const config = new DocumentBuilder()
+    .addBasicAuth()
     .setTitle('API REST BACKEND NEST')
     .setDescription('API backend')
     .setVersion('1.0')
