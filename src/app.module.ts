@@ -11,6 +11,7 @@ import { RolesModule } from './modules/admin/roles/roles.module';
 import { PermissionsModule } from './modules/admin/permissions/permissions.module';
 import { SeedModule } from './database/seeders/seed.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { InventarioModule } from './modules/admin/inventario/inventario.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { AuthModule } from './modules/auth/auth.module';
     RolesModule,
     PermissionsModule,
     AuthModule,
+    InventarioModule,
 
   ],
   controllers: [AppController],
