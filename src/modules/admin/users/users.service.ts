@@ -55,7 +55,7 @@ export class UsersService {
   }
 
   findAll() {
-    return `This action returns all users`;
+    return this.userRepository.find();
   }
 
   async findOne(id: string): Promise<User> {
@@ -74,11 +74,19 @@ export class UsersService {
     return user;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    const user = await this.findOne(id);
+    const {rolesIds, ...resto} = updateUserDto;
+
+    Object.assign(user, resto);
+
+    return this.userRepository.save(user);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    const result = await this.userRepository.delete(id);
+    if(result.affected === 0){
+      throw new NotFoundException(`El user con ID ${id} no se encuentra de la BD`)
+    }
   }
 }

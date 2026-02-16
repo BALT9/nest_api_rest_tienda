@@ -1,15 +1,37 @@
 GET http://localhost:3000/users
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluIiwiaWQiOiI3Y2Y3ZjM2NS1kYmE3LTQ2NzctOWJiOC0yZDAyODAxNDQ1NWQiLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3NzExODU2MTMsImV4cCI6MTc3MTE4OTIxM30.ebLdq6NhJBwkCxmGzPaRgOeqHVL3VIhDWK0uZWTS-XE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluIiwiaWQiOiI3Y2Y3ZjM2NS1kYmE3LTQ2NzctOWJiOC0yZDAyODAxNDQ1NWQiLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3NzEyNjk4NDAsImV4cCI6MTc3MTI3MzQ0MH0.0f2TQAhIMFsON-unGW-kkVWlxl9-GxjNle6yD6JMDmA
 
 ###
 POST http://localhost:3000/users
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluIiwiaWQiOiI3Y2Y3ZjM2NS1kYmE3LTQ2NzctOWJiOC0yZDAyODAxNDQ1NWQiLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3NzExODMyNTgsImV4cCI6MTc3MTE4MzMxOH0.yYar_f5KxgVE_B2wr2lNEHIat6BKpndBwAlTqOPUOAE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluIiwiaWQiOiI3Y2Y3ZjM2NS1kYmE3LTQ2NzctOWJiOC0yZDAyODAxNDQ1NWQiLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3NzEyNjk4NDAsImV4cCI6MTc3MTI3MzQ0MH0.0f2TQAhIMFsON-unGW-kkVWlxl9-GxjNle6yD6JMDmA
 
 {
     "username": "Zilong",
     "email": "zilong@gmail.com",
     "password": "1234567890"
 }
+
+### Buscar user por ID
+GET http://localhost:3000/users/7280c9f1-7017-4535-a419-df0601768db9
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluIiwiaWQiOiI3Y2Y3ZjM2NS1kYmE3LTQ2NzctOWJiOC0yZDAyODAxNDQ1NWQiLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3NzEyNjk4NDAsImV4cCI6MTc3MTI3MzQ0MH0.0f2TQAhIMFsON-unGW-kkVWlxl9-GxjNle6yD6JMDmA
+
+### Edita user por ID
+PATCH http://localhost:3000/users/7280c9f1-7017-4535-a419-df0601768db9
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluIiwiaWQiOiI3Y2Y3ZjM2NS1kYmE3LTQ2NzctOWJiOC0yZDAyODAxNDQ1NWQiLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3NzEyNjk4NDAsImV4cCI6MTc3MTI3MzQ0MH0.0f2TQAhIMFsON-unGW-kkVWlxl9-GxjNle6yD6JMDmA
+
+{
+    "username": "Lucio",
+    "email": "lucio@gmail.com"
+}
+
+
+### Elimina user por ID
+DELETE http://localhost:3000/users/7280c9f1-7017-4535-a419-df0601768db9
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluIiwiaWQiOiI3Y2Y3ZjM2NS1kYmE3LTQ2NzctOWJiOC0yZDAyODAxNDQ1NWQiLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3NzEyNjk4NDAsImV4cCI6MTc3MTI3MzQ0MH0.0f2TQAhIMFsON-unGW-kkVWlxl9-GxjNle6yD6JMDmA
