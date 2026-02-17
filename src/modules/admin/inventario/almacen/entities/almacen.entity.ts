@@ -1,5 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Sucursal } from "../../sucursal/entities/sucursal.entity";
+import { Producto } from "../../producto/entities/producto.entity";
 
 @Entity('almacenes')
 export class Almacen {
@@ -18,4 +19,7 @@ export class Almacen {
 
     @ManyToOne(() => Sucursal, sucursal => sucursal.almacenes, { eager: true })
     sucursal: Sucursal;
+
+    productos: Producto[];
+
 }
