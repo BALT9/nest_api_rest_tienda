@@ -1,0 +1,27 @@
+### Listar Categorias
+GET http://localhost:3000/categoria
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluIiwiaWQiOiI3Y2Y3ZjM2NS1kYmE3LTQ2NzctOWJiOC0yZDAyODAxNDQ1NWQiLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3NzEzNTYyOTYsImV4cCI6MTc3MTM1OTg5Nn0.6PAEfusCwHg8pKe3YbHwGJi0BhhoW2nq2Znk9NxHuvI
+
+### Guardar
+POST http://localhost:3000/categoria
+Content-Type: application/json
+
+{
+    "nombre": "Electronicos",
+    "descripcion": "Cable led"
+}
+
+### Mostrar por ID
+GET http://localhost:3000/categoria/2
+
+### Editar por ID
+PATCH http://localhost:3000/categoria/2
+Content-Type: application/json
+
+{
+    "nombre": "Juguetes",
+    "descripcion": "Juguetes para niños"
+}
+
+### Elininar por ID
+DELETE http://localhost:3000/categoria/2
