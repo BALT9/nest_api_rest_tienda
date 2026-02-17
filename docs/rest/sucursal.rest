@@ -1,0 +1,28 @@
+### Listar Sucursal
+GET http://localhost:3000/sucursal
+
+### Crear Sucursal
+POST http://localhost:3000/sucursal
+Content-Type: application/json
+
+{
+    "nombre": "Sucursal Norte",
+    "direccion": "Av. Norte",
+    "ciudad": "La Paz/El Alto"
+}
+
+### Listar Sucursal por ID
+GET http://localhost:3000/sucursal/3
+
+### Editar Sucursal por ID
+PATCH http://localhost:3000/sucursal/3
+Content-Type: application/json
+
+{
+    "nombre": "Sucursal Este",
+    "direccion": "Av. Este",
+    "ciudad": "Cochabamba"
+}
+
+### Listar Sucursal por ID
+DELETE http://localhost:3000/sucursal/4
