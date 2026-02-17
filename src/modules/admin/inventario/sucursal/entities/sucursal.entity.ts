@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Almacen } from "../../almacen/entities/almacen.entity";
+import { SucursalUser } from "./sucursal_user.entity";
 
 @Entity('sucursales')
 export class Sucursal {
@@ -17,4 +18,7 @@ export class Sucursal {
 
     @OneToMany(()=> Almacen, almacen => almacen.sucursal)
     almacenes: Almacen[];
+
+    @OneToMany(()=> SucursalUser, su => su.sucursal)
+    usuarios: SucursalUser;
 }
