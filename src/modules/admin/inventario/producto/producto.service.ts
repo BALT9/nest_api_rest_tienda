@@ -25,12 +25,49 @@ export class ProductoService {
   }
 
   // Paginacion
-  findAll(page: number = 1, limit: number = 10, search: string = '', sortBy: string = 'id') {
+  async findAll(page: number = 1, limit: number = 10, search: string = '', sortBy: string = 'id', order: 'ASC' | 'DESC' = 'DESC', almacen: number = 0, activo: boolean = true) {
+    const queryBuilder = this.productoRepository.createQueryBuilder('producto')
+      .leftJoinAndSelect('producto.almacenes', 'productoAlmacen')
+      .leftJoinAndSelect('productoAlmacen.almacen', 'almacen')
+      .where('producto.estado = :activo', { activo })
 
+    //Busqueda
+    if (search) {
+      queryBuilder.andWhere(
+        '(producto.nombre ILIKE :search OR producto.marca ILIKE :search', { search: `%${search}%` })
+    }
+
+    if (almacen && almacen > 0) {
+      queryBuilder.andWhere('almacen.id = :almacen', { almacen });
+    }
+
+    // Ordenacion
+    queryBuilder.orderBy(`producto.${sortBy}`, order);
+
+    // Paginacion
+    queryBuilder.skip((page - 1) * limit).take(limit)
+
+    const [productos, total] = await queryBuilder.getManyAndCount();
+    const totalPages = Math.ceil(total / limit);
+
+    return {
+      data: productos,
+      total,
+      limit,
+      page,
+      totalPages,
+      activo,
+      almacen,
+      order,
+      search,
+      sortBy
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} producto`;
+  async findOne(id: number) {
+    const producto = await this.productoRepository.findOne({where: {id}})
+    if(!producto) throw new NotFoundException('Categoria no encontrado');
+    return producto;
   }
 
   update(id: number, updateProductoDto: UpdateProductoDto) {
