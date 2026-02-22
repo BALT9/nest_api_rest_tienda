@@ -1,26 +1,29 @@
 ### Listar Categorias
 GET http://localhost:3000/categoria
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluIiwiaWQiOiI3Y2Y3ZjM2NS1kYmE3LTQ2NzctOWJiOC0yZDAyODAxNDQ1NWQiLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3NzEzNTYyOTYsImV4cCI6MTc3MTM1OTg5Nn0.6PAEfusCwHg8pKe3YbHwGJi0BhhoW2nq2Znk9NxHuvI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluIiwiaWQiOiJhNTQ4YTJlMC1mZmNiLTQwMTItOWUwYy0xMWZhM2Q2NzBhYTAiLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3NzE3NzU0MDEsImV4cCI6MTc3MTc3OTAwMX0.XNIv_N1kLDwZaNUY0xa5kiIzt4v4fuESJdEu6p2U6hs
 
 ### Guardar
 POST http://localhost:3000/categoria
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluIiwiaWQiOiJhNTQ4YTJlMC1mZmNiLTQwMTItOWUwYy0xMWZhM2Q2NzBhYTAiLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3NzE3NzU0MDEsImV4cCI6MTc3MTc3OTAwMX0.XNIv_N1kLDwZaNUY0xa5kiIzt4v4fuESJdEu6p2U6hs
+
 
 {
     "nombre": "Electronicos",
-    "descripcion": "Cable led"
+    "descripcion": "Producto Electronico"
 }
 
 ### Mostrar por ID
 GET http://localhost:3000/categoria/2
 
 ### Editar por ID
-PATCH http://localhost:3000/categoria/2
+PATCH http://localhost:3000/categoria/1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluIiwiaWQiOiJhNTQ4YTJlMC1mZmNiLTQwMTItOWUwYy0xMWZhM2Q2NzBhYTAiLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3NzE3NzU0MDEsImV4cCI6MTc3MTc3OTAwMX0.XNIv_N1kLDwZaNUY0xa5kiIzt4v4fuESJdEu6p2U6hs
 
 {
-    "nombre": "Juguetes",
-    "descripcion": "Juguetes para niños"
+    "nombre": "Electronicos",
+    "descripcion": "Producto Electronico"
 }
 
 ### Elininar por ID

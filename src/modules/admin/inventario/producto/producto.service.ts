@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProductoDto } from './dto/create-producto.dto';
 import { UpdateProductoDto } from './dto/update-producto.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -14,14 +14,19 @@ export class ProductoService {
     private productoRepository: Repository<Producto>,
     @InjectRepository(Categoria)
     private categoriaRepository: Repository<Categoria>,
-  ){}
+  ) { }
 
-  create(createProductoDto: CreateProductoDto) {
-    return 'This action adds a new producto';
+  async create(createProductoDto: CreateProductoDto) {
+    const categoria = await this.categoriaRepository.findOne({ where: { id: createProductoDto.categoria } })
+    if (!categoria) throw new NotFoundException('Categoria no encontrada');
+
+    const producto = this.productoRepository.create({ ...createProductoDto, categoria })
+    return this.productoRepository.save(producto);
   }
 
-  findAll() {
-    return `This action returns all producto`;
+  // Paginacion
+  findAll(page: number = 1, limit: number = 10, search: string = '', sortBy: string = 'id') {
+
   }
 
   findOne(id: number) {

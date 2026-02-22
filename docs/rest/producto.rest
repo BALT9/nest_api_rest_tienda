@@ -1,0 +1,33 @@
+### Listar Producto
+GET http://localhost:3000/producto
+Authorization: Bearer 
+
+### Guardar Producto
+POST http://localhost:3000/producto
+Content-Type: application/json
+
+{
+  "nombre": "Laptop",
+  "descripcion": "Para Gamers",
+  "unidad_medida": "caja",
+  "marca": "Dell",
+  "precio_venta_actual": "5000.00",
+  "imagen": "string",
+  "estado": true,
+  "categoria": 1
+}
+
+### Mostrar por ID
+GET http://localhost:3000/producto/2
+
+### Editar por ID
+PATCH http://localhost:3000/producto/2
+Content-Type: application/json
+
+{
+    "nombre": "Juguetes",
+    "descripcion": "Juguetes para niños"
+}
+
+### Elininar por ID
+DELETE http://localhost:3000/producto/2
