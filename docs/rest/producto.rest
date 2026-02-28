@@ -1,5 +1,6 @@
 ### Listar Producto
-GET http://localhost:3000/producto?page=1&limit=3&search=lap
+# GET http://localhost:3000/producto?page=1&limit=10&search=Mouse 
+GET http://localhost:3000/producto
 Authorization: Bearer 
 
 ### Guardar Producto
@@ -18,15 +19,19 @@ Content-Type: application/json
 }
 
 ### Mostrar por ID
-GET http://localhost:3000/producto/1
+GET http://localhost:3000/producto/2
 
 ### Editar por ID
-PATCH http://localhost:3000/producto/2
+PATCH http://localhost:3000/producto/4
 Content-Type: application/json
 
 {
-    "nombre": "Juguetes",
-    "descripcion": "Juguetes para niños"
+  "nombre": "Laptop Victus Gamer",
+  "descripcion": "Para Gamers Pro",
+  "unidad_medida": "caja",
+  "marca": "Victus",
+  "precio_venta_actual": "8000.00"
+
 }
 
 ### Elininar por ID

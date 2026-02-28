@@ -87,11 +87,26 @@ export class ProductoService {
     return producto;
   }
 
-  update(id: number, updateProductoDto: UpdateProductoDto) {
-    return `This action updates a #${id} producto`;
+  async update(id: number, updateProductoDto: UpdateProductoDto) {
+    const producto = await this.findOne(id);
+    if (updateProductoDto.categoria) {
+      const categoria = await this.categoriaRepository.findOne({ where: { id: updateProductoDto.categoria } });
+      if (!categoria) {
+        throw new NotFoundException('Categoria no encontrada')
+      }
+      producto.categoria = categoria;
+    }
+
+    Object.assign(producto, updateProductoDto);
+
+    return this.productoRepository.save(producto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} producto`;
+  async remove(id: number) {
+    const producto = await this.findOne(id);
+    producto.estado = false;
+    await this.productoRepository.save(producto);
+
+    return {message: 'Producto Inactivo'}
   }
 }
