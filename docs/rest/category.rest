@@ -7,7 +7,6 @@ POST http://localhost:3000/categoria
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluIiwiaWQiOiJhNTQ4YTJlMC1mZmNiLTQwMTItOWUwYy0xMWZhM2Q2NzBhYTAiLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3NzE3NzU0MDEsImV4cCI6MTc3MTc3OTAwMX0.XNIv_N1kLDwZaNUY0xa5kiIzt4v4fuESJdEu6p2U6hs
 
-
 {
     "nombre": "Electronicos",
     "descripcion": "Producto Electronico"

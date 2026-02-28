@@ -1,5 +1,5 @@
 ### Listar Producto
-GET http://localhost:3000/producto
+GET http://localhost:3000/producto?page=1&limit=3&search=lap
 Authorization: Bearer 
 
 ### Guardar Producto
@@ -18,7 +18,7 @@ Content-Type: application/json
 }
 
 ### Mostrar por ID
-GET http://localhost:3000/producto/2
+GET http://localhost:3000/producto/1
 
 ### Editar por ID
 PATCH http://localhost:3000/producto/2

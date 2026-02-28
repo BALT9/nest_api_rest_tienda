@@ -25,27 +25,44 @@ export class ProductoService {
   }
 
   // Paginacion
-  async findAll(page: number = 1, limit: number = 10, search: string = '', sortBy: string = 'id', order: 'ASC' | 'DESC' = 'DESC', almacen: number = 0, activo: boolean = true) {
-    const queryBuilder = this.productoRepository.createQueryBuilder('producto')
+  async findAll(
+    page: number = 1,
+    limit: number = 10,
+    search: string = '',
+    sortBy: string = 'id',
+    order: 'ASC' | 'DESC' = 'DESC',
+    almacen: number = 0,
+    activo: boolean = true
+  ) {
+    const queryBuilder = this.productoRepository
+      .createQueryBuilder('producto')
       .leftJoinAndSelect('producto.almacenes', 'productoAlmacen')
       .leftJoinAndSelect('productoAlmacen.almacen', 'almacen')
-      .where('producto.estado = :activo', { activo })
+      .where('producto.estado = :activo', { activo });
 
-    //Busqueda
+    // 🔎 Búsqueda (compatible con MariaDB)
     if (search) {
       queryBuilder.andWhere(
-        '(producto.nombre ILIKE :search OR producto.marca ILIKE :search', { search: `%${search}%` })
+        '(producto.nombre LIKE :search OR producto.marca LIKE :search)',
+        { search: `%${search}%` }
+      );
     }
 
+    // 📦 Filtro por almacén
     if (almacen && almacen > 0) {
       queryBuilder.andWhere('almacen.id = :almacen', { almacen });
     }
 
-    // Ordenacion
+    // 📊 Ordenación (⚠ validar para evitar SQL injection)
+    const allowedSortFields = ['id', 'nombre', 'marca', 'precio_venta_actual'];
+    if (!allowedSortFields.includes(sortBy)) {
+      sortBy = 'id';
+    }
+
     queryBuilder.orderBy(`producto.${sortBy}`, order);
 
-    // Paginacion
-    queryBuilder.skip((page - 1) * limit).take(limit)
+    // 📄 Paginación
+    queryBuilder.skip((page - 1) * limit).take(limit);
 
     const [productos, total] = await queryBuilder.getManyAndCount();
     const totalPages = Math.ceil(total / limit);
@@ -61,12 +78,12 @@ export class ProductoService {
       order,
       search,
       sortBy
-    }
+    };
   }
 
   async findOne(id: number) {
-    const producto = await this.productoRepository.findOne({where: {id}})
-    if(!producto) throw new NotFoundException('Categoria no encontrado');
+    const producto = await this.productoRepository.findOne({ where: { id } })
+    if (!producto) throw new NotFoundException('Categoria no encontrado');
     return producto;
   }
 
