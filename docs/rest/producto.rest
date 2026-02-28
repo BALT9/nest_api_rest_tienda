@@ -36,3 +36,6 @@ Content-Type: application/json
 
 ### Elininar por ID
 DELETE http://localhost:3000/producto/2
+
+# Subida de Imagen pero en postman
+# http://localhost:3000/producto/4/actualiza-imagen
