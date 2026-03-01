@@ -33,5 +33,4 @@ export class Movimiento {
     @Column({ type: 'text', nullable: true })
     observaciones: string;
 
-    movimientos: Movimiento[];
 }
