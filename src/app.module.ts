@@ -13,6 +13,7 @@ import { SeedModule } from './database/seeders/seed.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { InventarioModule } from './modules/admin/inventario/inventario.module';
 import { ClienteProveedorModule } from './modules/admin/cliente-proveedor/cliente-proveedor.module';
+import { NotaModule } from './modules/admin/nota/nota.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { ClienteProveedorModule } from './modules/admin/cliente-proveedor/client
     AuthModule,
     InventarioModule,
     ClienteProveedorModule,
+    NotaModule,
 
   ],
   controllers: [AppController],
