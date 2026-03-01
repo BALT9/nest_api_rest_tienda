@@ -12,6 +12,7 @@ import { PermissionsModule } from './modules/admin/permissions/permissions.modul
 import { SeedModule } from './database/seeders/seed.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { InventarioModule } from './modules/admin/inventario/inventario.module';
+import { ClienteProveedorModule } from './modules/admin/cliente-proveedor/cliente-proveedor.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { InventarioModule } from './modules/admin/inventario/inventario.module';
     PermissionsModule,
     AuthModule,
     InventarioModule,
+    ClienteProveedorModule,
 
   ],
   controllers: [AppController],
