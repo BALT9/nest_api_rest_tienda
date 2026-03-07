@@ -2,7 +2,7 @@
 GET http://localhost:3000/cliente-proveedor
 
 
-### Guardar
+### Guardar Proveedor
 POST http://localhost:3000/cliente-proveedor
 Content-Type: application/json
 
@@ -13,6 +13,20 @@ Content-Type: application/json
   "telefono": "78822335",
   "direccion": "Av ABC",
   "correo": "asus@mail,com",
+  "estado": true
+}
+
+### Guardar Cliente
+POST http://localhost:3000/cliente-proveedor
+Content-Type: application/json
+
+{
+  "tipo": "cliente",
+  "razon_social": "Juan Perez",
+  "identificacion": "4644654",
+  "telefono": "null",
+  "direccion": "null",
+  "correo": "null",
   "estado": true
 }
 

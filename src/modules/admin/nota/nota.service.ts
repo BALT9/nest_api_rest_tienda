@@ -1,8 +1,8 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateNotaDto } from './dto/create-nota.dto';
 import { UpdateNotaDto } from './dto/update-nota.dto';
-import { InjectDataSource } from '@nestjs/typeorm';
-import { DataSource, Not, QueryRunner } from 'typeorm';
+import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
+import { DataSource, Not, QueryRunner, Repository } from 'typeorm';
 import { User } from '../users/entities/user.entity';
 import { ClienteProveedor } from '../cliente-proveedor/entities/cliente-proveedor.entity';
 import { Nota } from './entities/nota.entity';
@@ -16,7 +16,10 @@ export class NotaService {
 
   constructor(
     @InjectDataSource()
-    private dataSource: DataSource
+    private dataSource: DataSource,
+    
+    @InjectRepository(Nota)
+    private notaRepo: Repository<Nota>
   ) { }
 
   async create(createNotaDto: CreateNotaDto) {
@@ -130,7 +133,7 @@ export class NotaService {
   }
 
   findAll() {
-    return `This action returns all nota`;
+    return this.notaRepo.find();
   }
 
   findOne(id: number) {

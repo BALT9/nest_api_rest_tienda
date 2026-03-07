@@ -8,9 +8,10 @@ import { Producto } from '../inventario/producto/entities/producto.entity';
 import { Movimiento } from './entities/movimiento.entity';
 import { Almacen } from '../inventario/almacen/entities/almacen.entity';
 import { AlmacenProducto } from '../inventario/almacen/entities/almacen_producto.entity';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [User, ClienteProveedor, Nota, Producto, Movimiento, Almacen, AlmacenProducto],
+  imports: [TypeOrmModule.forFeature([User, ClienteProveedor, Nota, Producto, Movimiento, Almacen, AlmacenProducto])],
   controllers: [NotaController],
   providers: [NotaService],
 })
