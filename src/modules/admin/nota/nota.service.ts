@@ -90,7 +90,7 @@ export class NotaService {
     } finally {
       await queryRunner.release();
     }
-    return 'This action adds a new nota';
+    // return 'This action adds a new nota';
   }
 
   private async actualizarStockQueryRunner(queryRunner: QueryRunner, almacen: Almacen, producto: Producto, cantidad: number, tipo: 'ingreso' | 'salida' | 'devolucion') {

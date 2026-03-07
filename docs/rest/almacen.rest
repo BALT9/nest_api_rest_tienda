@@ -1,0 +1,30 @@
+### Listar Almacen
+GET http://localhost:3000/almacen
+
+### Crear almacen
+POST http://localhost:3000/almacen
+Content-Type: application/json
+
+{
+    "nombre": "Almacen Uno",
+    "codigo": "ALM-001",
+    "descripcion": "",
+    "sucursal": 1
+    
+}
+
+### Listar almacen por ID
+GET http://localhost:3000/almacen/3
+
+### Editar almacen por ID
+PATCH http://localhost:3000/almacen/3
+Content-Type: application/json
+
+{
+    "nombre": "Sucursal Este",
+    "direccion": "Av. Este",
+    "ciudad": "Cochabamba"
+}
+
+### Listar almacen por ID
+DELETE http://localhost:3000/almacen/4

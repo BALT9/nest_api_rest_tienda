@@ -24,6 +24,6 @@ export class ClienteProveedor {
     @Column({ length: 200, nullable: true })
     correo: string;
 
-    @Column()
+    @Column({ nullable: true })
     stado: boolean;
 }

@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsBoolean, IsString } from "class-validator";
+import { IsBoolean, IsOptional, IsString } from "class-validator";
 
 export class CreateClienteProveedorDto {
 
@@ -28,6 +28,7 @@ export class CreateClienteProveedorDto {
     correo: string;
 
     @ApiProperty()
+    @IsOptional()
     @IsBoolean()
     estado: boolean;
 }

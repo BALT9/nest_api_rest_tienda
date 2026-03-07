@@ -8,10 +8,10 @@ POST http://localhost:3000/producto
 Content-Type: application/json
 
 {
-  "nombre": "Laptop",
+  "nombre": "Laptop ASUS",
   "descripcion": "Para Gamers",
   "unidad_medida": "caja",
-  "marca": "Dell",
+  "marca": "ASUSU",
   "precio_venta_actual": "5000.00",
   "imagen": "string",
   "estado": true,
