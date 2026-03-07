@@ -25,5 +25,5 @@ export class ClienteProveedor {
     correo: string;
 
     @Column({ nullable: true })
-    stado: boolean;
+    estado: boolean;
 }

@@ -3,7 +3,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "fecha": "2026-02-18",
+  "fecha": "2026-03-07",
   "tipo_nota": "compra",
   "cliente_id": 4,
   "user_id": "a548a2e0-ffcb-4012-9e0c-11fa3d670aa0",
@@ -13,19 +13,19 @@ Accept: application/json
     {
         "producto_id": 5,
         "almacen_id": 1,
-        "cantidad": 6,
+        "cantidad": 10,
         "tipo_movimiento": "ingreso",
-        "precio_unitario_compra": "12000.00",
-        "precio_unitario_compra": "0",
+        "precio_unitario_compra": "10000.00",
+        "precio_unitario_venta": "0",
         "observaciones": "ninguna"
     },
     {
         "producto_id": 1,
         "almacen_id": 1,
-        "cantidad": 10,
+        "cantidad": 2,
         "tipo_movimiento": "ingreso",
-        "precio_unitario_compra": "500.00",
-        "precio_unitario_compra": "0",
+        "precio_unitario_compra": "100.00",
+        "precio_unitario_venta": "0",
         "observaciones": "ninguna"
     }
   ]
