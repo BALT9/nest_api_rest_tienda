@@ -23,4 +23,11 @@ Accept: application/json
 }
 
 ###
-GET http://localhost:3000/nota
+GET http://localhost:3000/nota?page=1&limit=10&tipo_nota=venta
+
+
+###
+GET http://localhost:3000/nota?page=1&limit=10&cliente_id=5
+
+###
+GET http://localhost:3000/nota?page=1&limit=10&user_id=a548a2e0-ffcb-4012-9e0c-11fa3d670aa0

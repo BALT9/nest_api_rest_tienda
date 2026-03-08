@@ -10,6 +10,7 @@ import { Movimiento } from './entities/movimiento.entity';
 import { Producto } from '../inventario/producto/entities/producto.entity';
 import { Almacen } from '../inventario/almacen/entities/almacen.entity';
 import { AlmacenProducto } from '../inventario/almacen/entities/almacen_producto.entity';
+import { FiltroNotaDto } from './dto/filtro-nota.dto';
 
 @Injectable()
 export class NotaService {
@@ -17,7 +18,7 @@ export class NotaService {
   constructor(
     @InjectDataSource()
     private dataSource: DataSource,
-    
+
     @InjectRepository(Nota)
     private notaRepo: Repository<Nota>
   ) { }
@@ -132,8 +133,51 @@ export class NotaService {
 
   }
 
-  findAll() {
-    return this.notaRepo.find();
+  async findAll(filtro: FiltroNotaDto) {
+
+    const query = this.notaRepo.createQueryBuilder('nota')
+      .leftJoinAndSelect('nota.user', 'user')
+      .leftJoinAndSelect('nota.cliente', 'cliente')
+      .leftJoinAndSelect('nota.movimientos', 'movimientos')
+      .leftJoinAndSelect('movimientos.producto', 'producto')
+
+    if(filtro.tipo_nota){
+      query.andWhere('nota.tipo_nota = :tipo_nota', {tipo_nota: filtro.tipo_nota})
+    }
+
+    if(filtro.estado_nota){
+      query.andWhere('nota.estado_nota = :estado_nota', {estado_nota: filtro.estado_nota})
+    }
+
+    if(filtro.desde){
+      query.andWhere('nota.fecha = :desde', {desde: filtro.desde});
+    }
+
+    if(filtro.hasta){
+      query.andWhere('nota.fecha = :hasta', {hasta: filtro.hasta});
+    }
+
+    if(filtro.user_id){
+      query.andWhere('nota.userId = :user_id', {user_id: filtro.user_id});
+    }
+
+    if(filtro.cliente_id){
+      query.andWhere('nota.clienteId = :cliente_id', {cliente_id: filtro.cliente_id});
+    }
+
+    query.orderBy('nota.fecha', 'DESC');
+
+    // paginacion
+
+    const limit = filtro.limit || 10;
+    const page = filtro.page || 1;
+
+    query.skip((page - 1)* limit).take(limit);
+    
+
+    const [data, total] = await query.getManyAndCount();
+
+    return { data, total };
   }
 
   findOne(id: number) {
