@@ -1,12 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Res } from '@nestjs/common';
 import { NotaService } from './nota.service';
 import { CreateNotaDto } from './dto/create-nota.dto';
 import { UpdateNotaDto } from './dto/update-nota.dto';
 import { FiltroNotaDto } from './dto/filtro-nota.dto';
 
+import { Response } from 'express';
+
 @Controller('nota')
 export class NotaController {
-  constructor(private readonly notaService: NotaService) {}
+  constructor(private readonly notaService: NotaService) { }
 
   @Post()
   create(@Body() createNotaDto: CreateNotaDto) {
@@ -16,6 +18,15 @@ export class NotaController {
   @Get()
   findAll(@Query() filtroDto: FiltroNotaDto) {
     return this.notaService.findAll(filtroDto);
+  }
+
+  // ✅ MOVER ARRIBA
+  @Get('reporte/pdf')
+  async generarReportePDF(
+    @Res() res: Response,
+    @Query() filtro: FiltroNotaDto
+  ) {
+    return this.notaService.generarReporte(res, filtro);
   }
 
   @Get(':id')

@@ -12,6 +12,9 @@ import { Almacen } from '../inventario/almacen/entities/almacen.entity';
 import { AlmacenProducto } from '../inventario/almacen/entities/almacen_producto.entity';
 import { FiltroNotaDto } from './dto/filtro-nota.dto';
 
+import * as PDFDocument from 'pdfkit';
+import { Response } from 'express';
+
 @Injectable()
 export class NotaService {
 
@@ -141,28 +144,28 @@ export class NotaService {
       .leftJoinAndSelect('nota.movimientos', 'movimientos')
       .leftJoinAndSelect('movimientos.producto', 'producto')
 
-    if(filtro.tipo_nota){
-      query.andWhere('nota.tipo_nota = :tipo_nota', {tipo_nota: filtro.tipo_nota})
+    if (filtro.tipo_nota) {
+      query.andWhere('nota.tipo_nota = :tipo_nota', { tipo_nota: filtro.tipo_nota })
     }
 
-    if(filtro.estado_nota){
-      query.andWhere('nota.estado_nota = :estado_nota', {estado_nota: filtro.estado_nota})
+    if (filtro.estado_nota) {
+      query.andWhere('nota.estado_nota = :estado_nota', { estado_nota: filtro.estado_nota })
     }
 
-    if(filtro.desde){
-      query.andWhere('nota.fecha = :desde', {desde: filtro.desde});
+    if (filtro.desde) {
+      query.andWhere('nota.fecha = :desde', { desde: filtro.desde });
     }
 
-    if(filtro.hasta){
-      query.andWhere('nota.fecha = :hasta', {hasta: filtro.hasta});
+    if (filtro.hasta) {
+      query.andWhere('nota.fecha = :hasta', { hasta: filtro.hasta });
     }
 
-    if(filtro.user_id){
-      query.andWhere('nota.userId = :user_id', {user_id: filtro.user_id});
+    if (filtro.user_id) {
+      query.andWhere('nota.userId = :user_id', { user_id: filtro.user_id });
     }
 
-    if(filtro.cliente_id){
-      query.andWhere('nota.clienteId = :cliente_id', {cliente_id: filtro.cliente_id});
+    if (filtro.cliente_id) {
+      query.andWhere('nota.clienteId = :cliente_id', { cliente_id: filtro.cliente_id });
     }
 
     query.orderBy('nota.fecha', 'DESC');
@@ -172,8 +175,8 @@ export class NotaService {
     const limit = filtro.limit || 10;
     const page = filtro.page || 1;
 
-    query.skip((page - 1)* limit).take(limit);
-    
+    query.skip((page - 1) * limit).take(limit);
+
 
     const [data, total] = await query.getManyAndCount();
 
@@ -190,5 +193,128 @@ export class NotaService {
 
   remove(id: number) {
     return `This action removes a #${id} nota`;
+  }
+
+  async generarReporte(res: Response, filtro: FiltroNotaDto) {
+    const { data } = await this.findAll(filtro);
+
+    const doc = new PDFDocument({
+      margin: 40,
+      size: 'A4'
+    });
+
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader(
+      'Content-Disposition',
+      'attachment; filename=reporte_notas.pdf'
+    );
+
+    doc.pipe(res);
+
+    // ===== HEADER =====
+    doc
+      .fontSize(20)
+      .fillColor('#0f172a')
+      .text('REPORTE DE NOTAS', { align: 'center' });
+
+    doc
+      .fontSize(10)
+      .fillColor('gray')
+      .text(`Generado: ${new Date().toLocaleString()}`, { align: 'center' });
+
+    doc.moveDown(2);
+
+    data.forEach((nota, index) => {
+
+      // ===== CAJA DE NOTA =====
+      const startY = doc.y;
+
+      doc
+        .lineWidth(1)
+        .roundedRect(30, startY - 5, 535, 90, 5)
+        .stroke('#d1d5db');
+
+      // ===== TITULO NOTA =====
+      doc
+        .fontSize(13)
+        .fillColor('#1e40af')
+        .text(`Nota #${nota.id}`, 40, startY + 5);
+
+      doc.moveDown(0.5);
+
+      // ===== INFO =====
+      doc
+        .fontSize(10)
+        .fillColor('black')
+        .text(`Fecha: `, { continued: true })
+        .font('Helvetica-Bold')
+        .text(`${nota.fecha}`)
+        .font('Helvetica')
+
+        .text(`Cliente: `, { continued: true })
+        .font('Helvetica-Bold')
+        .text(`${nota.cliente?.razon_social || '-'}`)
+        .font('Helvetica')
+
+        .text(`Usuario: `, { continued: true })
+        .font('Helvetica-Bold')
+        .text(`${nota.user?.username || '-'}`)
+        .font('Helvetica')
+
+        .text(`Tipo: `, { continued: true })
+        .font('Helvetica-Bold')
+        .text(`${nota.tipo_nota}`)
+        .font('Helvetica')
+
+        .text(`Estado: `, { continued: true })
+        .font('Helvetica-Bold')
+        .text(`${nota.estado_nota}`);
+
+      doc.moveDown();
+
+      // ===== TITULO MOVIMIENTOS =====
+      doc
+        .fontSize(11)
+        .fillColor('#111827')
+        .text('Movimientos');
+
+      doc.moveDown(0.5);
+
+      // ===== ENCABEZADO TABLA =====
+      doc
+        .font('Helvetica-Bold')
+        .fontSize(10)
+        .text('Producto', 50, doc.y)
+        .text('Cantidad', 300, doc.y)
+        .text('Tipo', 380, doc.y);
+
+      doc.moveDown(0.3);
+
+      doc
+        .moveTo(40, doc.y)
+        .lineTo(550, doc.y)
+        .stroke('#9ca3af');
+
+      doc.moveDown(0.3);
+
+      // ===== FILAS =====
+      doc.font('Helvetica');
+
+      nota.movimientos.forEach((mov) => {
+        const y = doc.y;
+
+        doc
+          .fontSize(10)
+          .text(mov.producto?.nombre || '-', 50, y)
+          .text(String(mov.cantidad), 300, y)
+          .text(mov.tipo_movimiento, 380, y);
+
+        doc.moveDown();
+      });
+
+      doc.moveDown(2);
+    });
+
+    doc.end();
   }
 }
