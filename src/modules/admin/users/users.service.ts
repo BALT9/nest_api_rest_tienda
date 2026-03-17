@@ -18,7 +18,7 @@ export class UsersService {
   async create(createUserDto: CreateUserDto) {
     const { rolesIds, email, username, ...rest } = createUserDto;
 
-    // verficar si ya exiten un username 
+    // verficar si ya existen un username 
     const existeUsername = await this.userRepository.findOne({
       where: {username}
     });
@@ -88,5 +88,6 @@ export class UsersService {
     if(result.affected === 0){
       throw new NotFoundException(`El user con ID ${id} no se encuentra de la BD`)
     }
+    
   }
 }
