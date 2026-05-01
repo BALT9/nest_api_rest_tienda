@@ -1,7 +1,8 @@
-GET http://localhost:3000/
+GET http://localhost:3000/api/auth/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluIiwiaWQiOiJhNTQ4YTJlMC1mZmNiLTQwMTItOWUwYy0xMWZhM2Q2NzBhYTAiLCJyb2xlcyI6WyJhZG1pbiJdLCJpYXQiOjE3Nzc2NzEyNzYsImV4cCI6MTc3NzY3NDg3Nn0.GVAdEaqlyL9MugOq1bgWdBAqB8A86uWn9F-p9aZsRxE
 
 ###
-POST http://localhost:3000/auth/login
+POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 Accept: application/json
 
