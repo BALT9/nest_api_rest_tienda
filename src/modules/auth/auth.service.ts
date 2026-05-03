@@ -1,7 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { UsersService } from '../admin/users/users.service';
-
-import { hash, compare } from 'bcrypt';
+import { compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
@@ -12,33 +11,41 @@ export class AuthService {
     ) {}
 
     async signIn(email: string, password: string): Promise<any> {
-        // buscar user por email
+
         const usuario = await this.userService.findOneByEmail(email);
+
         if (!usuario) {
-            return new HttpException('Usuario no encontrado', 404);
+            throw new HttpException('Usuario no encontrado', 404);
         }
 
         const verificarPass = await compare(password, usuario.password);
 
-        if(!verificarPass) throw new HttpException('Contraseña Incorrecta', 401);
-
-        // JWT
-        const payload = {
-            email: usuario.username,
-            id: usuario.id,
-            roles: usuario.roles.map((r)=> r.name)
+        if (!verificarPass) {
+            throw new HttpException('Contraseña Incorrecta', 401);
         }
+
+        // 🔥 FIX IMPORTANTE
+        const payload = {
+            sub: usuario.id,            // ✔ estándar JWT
+            email: usuario.email,       // ✔ correcto
+            username: usuario.username,
+            roles: usuario.roles.map(r => r.name)
+        };
 
         const token = this.jwtService.sign(payload);
 
         return {
             access_token: token,
             user: {
+                id: usuario.id,
                 username: usuario.username,
                 email: usuario.email,
-                roles: usuario.roles.map((r)=> r.name)
+                roles: usuario.roles.map(r => r.name)
             }
-        }
+        };
+    }
 
+    async getProfile(id: string) {
+        return this.userService.findOne(id);
     }
 }
